@@ -220,6 +220,7 @@
             <option value="gamble_vs_gamble">Gamble vs Gamble</option>
             <option value="sure_vs_2gambles">Sure vs 2 Gambles</option>
             <option value="3gambles">3 Gambles</option>
+            <option value="self_control">Self Control</option>
         </select>
         <span id="experiment-status" style="margin-left: 10px; color: gray;"></span>
     </div>
@@ -360,6 +361,8 @@
                 case '3gambles':
                     scriptName = 'experiment_3gambles.js';
                     break;
+                case 'self_control.js'
+                    scriptName = 'experiment_selfControl.js'
                 default:
                     console.error('Unknown experiment type:', experimentType);
                     return false;

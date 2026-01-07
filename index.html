@@ -388,17 +388,24 @@
                 document.body.appendChild(script);
             });
         }
-
+        
         function requestFullscreenThenStart() {
             const elem = document.documentElement;
-            
-            // Request fullscreen first (requires user gesture)
-            const fullscreenPromise = elem.requestFullscreen ? elem.requestFullscreen()
-                : elem.webkitRequestFullscreen ? elem.webkitRequestFullscreen()
-                : elem.msRequestFullscreen ? elem.msRequestFullscreen()
-                : Promise.resolve();
-            
-            // Then start the experiment
+        
+            let fullscreenPromise;
+        
+            if (elem.requestFullscreen) {
+                fullscreenPromise = elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) {
+                elem.webkitRequestFullscreen();
+                fullscreenPromise = Promise.resolve();
+            } else if (elem.msRequestFullscreen) {
+                elem.msRequestFullscreen();
+                fullscreenPromise = Promise.resolve();
+            } else {
+                fullscreenPromise = Promise.resolve();
+            }
+        
             fullscreenPromise
                 .then(() => {
                     console.log('Entered fullscreen');
